@@ -13,23 +13,22 @@ function gitDownload(projectName){
     projectName = path.join(path.dirname(__dirname), 'tempFolder', projectName);
     fsExtra.removeSync(projectName);
     
-    let projectUrl = "Stringbao/webpage-seed";
+    let projectUrl = "Stringbao/webpage-cli-seed-1.0";
 
     //loading进度圈
     const spinner = ora(`Download`).start();
     return new Promise((resolve, reject) => {
         // 下载 git 模板
         spinner.start();
-        download(projectUrl,
-            projectName, {}, (err) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    spinner.stop();
-                    log.success("Download Success");
-                    resolve(projectName);
-                }
-            })
+        download(projectUrl, projectName, {}, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                spinner.stop();
+                log.success("Download Success");
+                resolve(projectName);
+            }
+        })
     })
 }
 

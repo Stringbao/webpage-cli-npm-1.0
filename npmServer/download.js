@@ -3,15 +3,17 @@ const path = require('path');
 const ora = require('ora');
 const fsExtra = require('fs-extra');
 const log = require('./log');
+
 /**
  * 下载git项目
  * @param {*} projectName 项目名称
  */
 
-function gitDownload(projectName){
+function gitDownload(rootPath){
+
     //本地临时目录
-    projectName = path.join(path.dirname(__dirname), 'tempFolder', projectName);
-    fsExtra.removeSync(projectName);
+    // projectName = path.join(path.dirname(__dirname), 'tempFolder', projectName);
+    // fsExtra.removeSync(projectName);
     
     let projectUrl = "Stringbao/webpage-cli-seed-1.0";
 
@@ -20,13 +22,13 @@ function gitDownload(projectName){
     return new Promise((resolve, reject) => {
         // 下载 git 模板
         spinner.start();
-        download(projectUrl, projectName, {}, (err) => {
+        download(projectUrl, rootPath, {}, (err) => {
             if (err) {
                 reject(err);
             } else {
                 spinner.stop();
                 log.success("Download Success");
-                resolve(projectName);
+                resolve(rootPath);
             }
         })
     })
